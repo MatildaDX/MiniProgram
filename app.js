@@ -1,39 +1,48 @@
-//app.js
+// 注册一个小程序实例
 App({
+  // 小程序生命周期函数: 会在后台存活两个小时
+  // 当小程序初始化完成时
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-
-    // 登录
-    wx.login({
-      success: res => {
-        // 发送 res.code 到后台换取 openId, sessionKey, unionId
-      }
-    })
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
-              }
-            }
-          })
-        }
-      }
-    })
+    // 获取用户信息 -> 异步
+    // wx.getUserInfo({
+    //   success: function (res) {
+    //     console.log(res)
+    //   }
+    // })
+    // 发送Error
+    // setTimeout(() => {
+    //   const err = new Error()
+    //   throw err
+    // }, 1000)
   },
-  globalData: {
-    userInfo: null
+  // 当界面加载完时
+  onShow: function (options) {
+    console.log(options)
+    // 1. 判断小程序进入场景
+    switch (options.scene) {
+      case 1001:
+        break;
+      case 1005: 
+        break;
+      default:
+        break;
+    }
+    // 获取用户信息 --> 即将废弃
+    // wx.getUserInfo({
+    //   complete: (res) => {console.log(res)},
+    // })
+  },
+  // 当小程序隐藏时
+  onHide: function () {
+    console.log("小程序隐藏了")
+  },
+  // 当小程序发生错误时
+  onError: function () {
+    console.log("小程序发生了错误")
+  },
+  // 定义全局属性
+  globelUserData: {
+    name: 'CoderVis',
+    age: 18
   }
 })
